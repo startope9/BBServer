@@ -1,0 +1,10 @@
+Flask
+flask_cors
+opencv-python
+numpy
+pyrebase4
+Flask-Session
+ultralytics
+pandas
+imageio[pyav]
+imageio[ffmpeg]
