@@ -8,3 +8,4 @@ ultralytics
 pandas
 imageio[pyav]
 imageio[ffmpeg]
+gunicorn
