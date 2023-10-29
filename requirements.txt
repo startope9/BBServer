@@ -9,3 +9,4 @@ pandas
 imageio[pyav]
 imageio[ffmpeg]
 gunicorn
+firebase-admin

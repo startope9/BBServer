@@ -10,6 +10,8 @@ from ultralytics import YOLO
 import time
 import imageio
 import pandas as pd
+from firebase_admin import credentials
+import json
 
 
 app = Flask(__name__)
@@ -27,7 +29,7 @@ sess.init_app(app)
 
 
 # Session(app)
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=r'https://ball-badminton.vercel.app/')
 
 # UPLOAD_FOLDER = 'uploads'
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -37,16 +39,9 @@ PROCESSED_FOLDER = 'processed'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['PROCESSED_FOLDER'] = PROCESSED_FOLDER
 
-config = {
-  "apiKey": "AIzaSyCkHxdjXurUqy5XD6sh7AbeWe_UGhv8eU4",
-  "authDomain": "sports-8b789.firebaseapp.com",
-  "databaseURL": "https://sports-8b789-default-rtdb.asia-southeast1.firebasedatabase.app",
-  "projectId": "sports-8b789",
-  "storageBucket": "sports-8b789.appspot.com",
-  "messagingSenderId": "948803731518",
-  "appId": "1:948803731518:web:0d5a6c2f2d79be8007d16f",
-  "measurementId": "G-YBHVHNQ9JP"
-}
+
+firebase_credentials = os.environ.get('FIREBASE_CREDENTIALS_JSON')
+config = credentials.Certificate(json.loads(firebase_credentials))
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
