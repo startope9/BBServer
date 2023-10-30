@@ -10,7 +10,6 @@ from ultralytics import YOLO
 import time
 import imageio
 import pandas as pd
-from firebase_admin import credentials
 import json
 
 
@@ -41,7 +40,7 @@ app.config['PROCESSED_FOLDER'] = PROCESSED_FOLDER
 
 
 firebase_credentials = os.environ.get('FIREBASE_CREDENTIALS_JSON')
-config = credentials.Certificate(json.loads(firebase_credentials))
+config = json.loads(firebase_credentials)
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
