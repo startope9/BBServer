@@ -10,3 +10,4 @@ imageio[pyav]
 imageio[ffmpeg]
 gunicorn
 firebase-admin
+redis

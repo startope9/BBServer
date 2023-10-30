@@ -11,6 +11,7 @@ import time
 import imageio
 import pandas as pd
 import json
+import redis
 
 
 app = Flask(__name__)
@@ -19,10 +20,11 @@ app = Flask(__name__)
 #Session
 app.secret_key = 'afuibewyhfqwj9028yr378y'
 
-SESSION_TYPE = 'filesystem'
+SESSION_TYPE = 'redis'
+SESSION_REDIS = redis.from_url(os.environ.get('SESSION_REDIS'))
 app.config.from_object(__name__)
 app.config['SESSION_TYPE'] = SESSION_TYPE
-# app.config['SECRET_KEY'] = config.SECRET_KEY
+app.config['SESSION_REDIS'] = SESSION_REDIS
 sess = Session()
 sess.init_app(app)
 
@@ -70,10 +72,8 @@ def letsLogin(val):
 
         req = request.get_json()
         ref = db.child('Umpire').get()
-        print(req)
 
         for key, value in ref.val().items():
-            print(value)
             if value['Name'] == req['Name'] and value['Pass'] == req['Pass']:
                 session['user'] = value['Name']
                 session['user_job'] = 'Umpire'
@@ -812,7 +812,7 @@ def matchFinish():
                 continue
 
 
-        session.pop('match')
+        session.pop('match', None)
 
 
         return '200'
@@ -851,7 +851,6 @@ def returnAllMatches():
 
             arr.append(subarr)
 
-        print(arr)
         return arr
 
     return '500'
@@ -860,9 +859,8 @@ def returnAllMatches():
 def logout():
 
     if 'user' in session:
-        session.pop('user')
-        session.pop('user_job')
-        print(True)
+        session.pop('user', None)
+        session.pop('user_job', None)
 
     return '200'
 
