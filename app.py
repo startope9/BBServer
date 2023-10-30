@@ -742,7 +742,7 @@ def remove_the_dirs():
 @app.route('/getSessionInfo', methods=['POST'])
 def returnSession():
     if 'user' in session:
-        return [session.get('user'), session.get('user_job')]
+        return [session['user'], session['user_job']]
     else:
         return []
     
