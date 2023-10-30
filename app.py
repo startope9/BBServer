@@ -66,6 +66,8 @@ def letsLogin(val):
             if value['Name'] == req['Name'] and value['Pass'] == req['Pass']:
                 session['user'] = value['Name']
                 session['user_job'] = 'Coach'
+                print(session.get('user'), session.get('user_job'))
+                print(session['user'], session['user_job'])
                 return '200'
 
     # 2 for umpire
