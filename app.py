@@ -18,13 +18,14 @@ app = Flask(__name__)
 
 
 #Session
-app.secret_key = 'afuibewyhfqwj9028yr378y'
 
+SECRET_KEY = 'afuibewyhfqwj9028yr378y'
 SESSION_TYPE = 'redis'
 SESSION_REDIS = redis.from_url(os.environ.get('SESSION_REDIS'))
 app.config.from_object(__name__)
 app.config['SESSION_TYPE'] = SESSION_TYPE
 app.config['SESSION_REDIS'] = SESSION_REDIS
+app.config['SECRET_KEY'] = SECRET_KEY
 sess = Session()
 sess.init_app(app)
 
