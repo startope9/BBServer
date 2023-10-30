@@ -28,7 +28,7 @@ sess.init_app(app)
 
 
 # Session(app)
-CORS(app, supports_credentials=True, origins=r'https://ball-badminton.vercel.app/')
+CORS(app, supports_credentials=True, origins=r'https://ball-badminton.vercel.app/*')
 
 # UPLOAD_FOLDER = 'uploads'
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
